@@ -3,15 +3,10 @@ package fi.testee.example.rest;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import javax.annotation.Resource;
-import javax.inject.Inject;
 
-import org.jboss.weld.context.bound.BoundRequestContext;
 import org.json.JSONObject;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -29,27 +24,6 @@ public class MyResourceTest {
 
     @Resource
     private RestServer restServer;
-
-    @Inject
-    private BoundRequestContext requestContext;
-    private HashMap<String, Object> storage;
-
-    @Before
-    public void setUp() {
-        storage = new HashMap<>();
-        requestContext.associate(storage);
-        requestContext.activate();
-    }
-
-    @After
-    public void tearDown() {
-        try {
-            requestContext.invalidate();
-            requestContext.deactivate();
-        } finally {
-            requestContext.dissociate(storage);
-        }
-    }
 
     @Test
     public void returns_request() throws IOException {
